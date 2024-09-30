@@ -45,24 +45,19 @@ namespace DataVisualizationDemo
 
         public void GenerateTerrain(float longitude, float latitude)
         {
-            // 1 degree of latitude is approximately 111 km
+            // 1 degree of latitude is approximately 111 km, and longitude is 111 km * cos(latitude in radians) 
             double deltaLat = distanceKm / 111.0;
-        
-            // 1 degree of longitude is about 111 km * cos(latitude in radians)
             double deltaLon = distanceKm / (111.0 * Math.Cos(latitude * Math.PI / 180.0));
-
             
-            // todo - Known issue: Getting elevations from locations in the ocean causes an error with the elevation api.
-            // todo - Use sample coordinates for now, for demonstration.
-            // latStart = (float)(latitude - deltaLat);
-            // latEnd = (float)(latitude + deltaLat);
-            // lonStart = (float)(longitude - deltaLon);
-            // lonEnd = (float)(longitude + deltaLon);
+            latStart = (float)(latitude - deltaLat);
+            latEnd = (float)(latitude + deltaLat);
+            lonStart = (float)(longitude - deltaLon);
+            lonEnd = (float)(longitude + deltaLon);
             
             GenerateTerrain();
         }
 
-        private async void GenerateTerrain()
+        public async void GenerateTerrain()
         {
             // Convert the longitude, latitude, and elevation to get a normalized vertex in world space.
             for (int x = 0; x <= gridResolution; x++)

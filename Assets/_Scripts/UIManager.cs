@@ -1,3 +1,5 @@
+#define USE_SAMPLE_COORDINATES
+
 using System;
 using DataVisualizationDemo;
 using TMPro;
@@ -55,24 +57,19 @@ namespace DataVisualizationDemo
 		
 		public void Awake()
 		{
-			// var rootVisualElement = GetComponent<UIDocument>().rootVisualElement;
-			//
-			// if (earthquakeDetailsUI.generateLowDensityTerrain != null)
-			// {
-			// 	earthquakeDetailsUI.generateLowDensityTerrain = rootVisualElement.Q<Button>("GenerateLowDensity");
-			// 	earthquakeDetailsUI.generateLowDensityTerrain.clicked += GenerateLowDensityTerrain;
-			// }
-			//
-			// if (earthquakeDetailsUI.generateMediumDensityTerrain != null)
-			// {
-			// 	earthquakeDetailsUI.generateMediumDensityTerrain = rootVisualElement.Q<Button>("GenerateMediumDensity");
-			// 	earthquakeDetailsUI.generateMediumDensityTerrain.clicked += GenerateMediumDensityTerrain;
-			// }
-
 			if (terrainGenerator == null)
 			{
 				Debug.LogError("No terrain generator selected");
 			}
+			terrainGenerator.GetComponent<MeshRenderer>().enabled = false;
+		}
+
+		private void Start()
+		{
+#if USE_SAMPLE_COORDINATES
+			Debug.Log("USE_SAMPLE_COORDINATES is enabled");
+			GenerateMediumDensityTerrain();
+#endif
 		}
 
 		private void Update()
@@ -138,13 +135,30 @@ namespace DataVisualizationDemo
 		}
 		
 		/// <summary>
+		/// Base function to generate terrain using the user interface.
+		/// </summary>
+		/// <param name="point"></param>
+		/// <param name="density"></param>
+		private void GenerateTerrain(int density)
+		{
+			terrainGenerator.gridResolution = density;
+			terrainGenerator.GenerateTerrain();
+		}
+		
+		/// <summary>
 		/// Generates a low resolution terrain of the earth, relative to the selected earthquake data point's location.
 		/// Adjust the resolution size in the class parameters. 
 		/// </summary>
 		public void GenerateLowDensityTerrain()
 		{
 			Debug.Log("Generating low density terrain");
+			
+#if USE_SAMPLE_COORDINATES
+			GenerateTerrain(earthquakeDetailsUI.lowRes);
+#else
 			GenerateTerrain(selectedPoint, earthquakeDetailsUI.lowRes);
+#endif
+			terrainGenerator.GetComponent<MeshRenderer>().enabled = true;
 		}
 
 		/// <summary>
@@ -155,7 +169,14 @@ namespace DataVisualizationDemo
 		public void GenerateMediumDensityTerrain()
 		{
 			Debug.Log("Generating medium density terrain");
+			
+#if USE_SAMPLE_COORDINATES
+			GenerateTerrain(earthquakeDetailsUI.mediumRes);
+#else
 			GenerateTerrain(selectedPoint, earthquakeDetailsUI.mediumRes);
+#endif
+			terrainGenerator.GetComponent<MeshRenderer>().enabled = true;
+			
 		}
 
 		public void SelectPoint(Point point)
