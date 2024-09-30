@@ -118,6 +118,10 @@ namespace DataVisualizationDemo
 
         private void UpdateMesh()
         {
+            if (terrainMesh == null)
+            {
+                terrainMesh = new Mesh();
+            }
             terrainMesh.Clear();
             terrainMesh.vertices = vertices.ToArray();
             terrainMesh.triangles = triangles.ToArray();

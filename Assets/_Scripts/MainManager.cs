@@ -52,7 +52,6 @@ namespace DataVisualizationDemo
                 foreach (var earthquake in _features)
                 {
                     var time = System.DateTimeOffset.FromUnixTimeMilliseconds(earthquake.properties.time).DateTime;
-                    Debug.Log($"Magnitude: {earthquake.properties.mag}, Location: {earthquake.properties.place}, Time: {time}, URL: {earthquake.properties.url}");
                 }
             }
         }
