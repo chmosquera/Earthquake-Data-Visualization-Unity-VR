@@ -118,9 +118,9 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FadeInPower: 2
+    - _FadeInPower: 3.06
     - _FadeOutPower: 2
-    - _FlipbookSpeed: 0.1
+    - _FlipbookSpeed: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -128,10 +128,10 @@ Material:
     - _MatchParticlePhase: 0
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Opacity: 4
+    - _Opacity: 21.29
     - _Parallax: 0.005
     - _ParticleEndSize: 1
-    - _ParticleSpeed: 0.3
+    - _ParticleSpeed: 0.2
     - _ParticleStartSize: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0

@@ -265,9 +265,6 @@
             "m_Id": "a46b3c6ddf0043b49faa4c68b67351d3"
         },
         {
-            "m_Id": "4f28227eaf1d45659a4e7b64039a22cc"
-        },
-        {
             "m_Id": "7b290c99e4bd44e2a485b53099b71095"
         }
     ],
@@ -3523,41 +3520,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.CustomInterpolatorNode",
-    "m_ObjectId": "4f28227eaf1d45659a4e7b64039a22cc",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "Hash33Value (Custom Interpolator)",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": -770.9999389648438,
-            "y": 1504.0,
-            "width": 247.99993896484376,
-            "height": 278.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "5aa68556266f48c4bc607b345353e693"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_DismissedVersion": 0,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "customBlockNodeName": "Hash33Value",
-    "serializedType": 3
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SampleTexture2DNode",
     "m_ObjectId": "52fad2695fe744cc8e70c3b469776722",
     "m_Group": {
@@ -3990,29 +3952,6 @@
         "e32": 0.0,
         "e33": 1.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
-    "m_ObjectId": "5aa68556266f48c4bc607b345353e693",
-    "m_Id": 0,
-    "m_DisplayName": "Out",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Out",
-    "m_StageCapability": 2,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-    },
-    "m_Labels": []
 }
 
 {
