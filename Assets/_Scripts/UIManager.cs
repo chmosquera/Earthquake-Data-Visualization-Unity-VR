@@ -61,7 +61,10 @@ namespace DataVisualizationDemo
 			{
 				Debug.LogError("No terrain generator selected");
 			}
-			terrainGenerator.GetComponent<MeshRenderer>().enabled = false;
+			else
+			{
+				terrainGenerator.GetComponent<MeshRenderer>().enabled = false;
+			}
 		}
 
 		private void Start()
@@ -158,7 +161,6 @@ namespace DataVisualizationDemo
 #else
 			GenerateTerrain(selectedPoint, earthquakeDetailsUI.lowRes);
 #endif
-			terrainGenerator.GetComponent<MeshRenderer>().enabled = true;
 		}
 
 		/// <summary>
@@ -175,13 +177,16 @@ namespace DataVisualizationDemo
 #else
 			GenerateTerrain(selectedPoint, earthquakeDetailsUI.mediumRes);
 #endif
-			terrainGenerator.GetComponent<MeshRenderer>().enabled = true;
-			
 		}
 
 		public void SelectPoint(Point point)
 		{
 			selectedPoint = point;
+		}
+
+		public void ShowTerrain()
+		{
+			terrainGenerator.GetComponent<MeshRenderer>().enabled = true;
 		}
 	}
 }
