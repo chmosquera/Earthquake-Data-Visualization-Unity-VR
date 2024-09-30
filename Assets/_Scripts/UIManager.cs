@@ -52,6 +52,8 @@ namespace DataVisualizationDemo
 		public RectTransform selectionPanel;
 		public EarthquakeDetailsUI earthquakeDetailsUI;
 		public USGSProceduralTerrainGenerator terrainGenerator;
+		public Plotter plotter;
+		private MainManager mainManager;
 
 		private Point selectedPoint;
 		
@@ -65,10 +67,29 @@ namespace DataVisualizationDemo
 			{
 				terrainGenerator.GetComponent<MeshRenderer>().enabled = false;
 			}
+
+			if (plotter == null)
+			{
+				Debug.LogError("No plotter selected");
+			}
 		}
 
 		private void Start()
 		{
+			GameObject obj = GameObject.FindWithTag("MainManager");
+			if (obj != null)
+			{
+				mainManager = obj.GetComponent<MainManager>();
+				if (mainManager == null)
+				{
+					Debug.LogError("No MainManager found");
+				}
+			}
+			else
+			{
+				Debug.LogError("No MainManager found");
+			}
+			
 #if USE_SAMPLE_COORDINATES
 			Debug.Log("USE_SAMPLE_COORDINATES is enabled");
 			GenerateMediumDensityTerrain();
@@ -186,7 +207,25 @@ namespace DataVisualizationDemo
 
 		public void ShowTerrain()
 		{
-			terrainGenerator.GetComponent<MeshRenderer>().enabled = true;
+			var mesh = terrainGenerator.GetComponent<MeshRenderer>();
+			if (mesh.enabled)
+			{
+				mesh.enabled = false;
+			}
+			else
+			{
+				mesh.enabled = true;
+			}
+		}
+
+		public void PlayTimelapse()
+		{
+			mainManager.AnimatedPlotSphere();
+		}
+
+		public void StopTimelapse()
+		{
+			mainManager.PlotSphere();
 		}
 	}
 }

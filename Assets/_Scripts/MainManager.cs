@@ -6,7 +6,7 @@ using EarthquakeFeature = DataVisualizationDemo.EarthquakeDataFetcher.Earthquake
 
 namespace DataVisualizationDemo
 {
-    public class EarthquakeDemoManager : MonoBehaviour
+    public class MainManager : MonoBehaviour
     {
         public EarthquakeDataFetcher earthquakeDataFetcher;
         public Plotter plotter;
@@ -28,17 +28,22 @@ namespace DataVisualizationDemo
 
         private void Start()
         {
-            MagnitudePlot2D();
+            // PlotSphere();
+            AnimatedPlotSphere();
         }
         
-        private async void MagnitudePlot2D()
+        /// <summary>
+        /// 
+        /// </summary>
+        public async void PlotSphere()
         {
             string url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2024-01-01&endtime=2024-05-01&minmagnitude=5";
             
             await FetchEarthquakeData(url); // Sets features list
 
+            plotter.plotType = Plotter.PlotType.SphericalCoordinatePlot;
             plotter.startDate = new DateTime(2024, 01, 01);
-            plotter.endDate = new DateTime(2024, 05, 01);
+            plotter.endDate = new DateTime(2024, 01, 01);
             plotter.SetupSphericalCoordinatePlot(_features);
             plotter.DrawSphericalCoordinatePlot();
         }
@@ -54,6 +59,19 @@ namespace DataVisualizationDemo
                     var time = System.DateTimeOffset.FromUnixTimeMilliseconds(earthquake.properties.time).DateTime;
                 }
             }
+        }
+        
+        public async void AnimatedPlotSphere()
+        {
+            string url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2024-01-01&endtime=2024-05-01&minmagnitude=5";
+            
+            await FetchEarthquakeData(url); // Sets features list
+
+            plotter.plotType = Plotter.PlotType.AnimatedSphericalCoordinatePlot;
+            plotter.startDate = new DateTime(2024, 01, 01);
+            plotter.endDate = new DateTime(2024, 05, 01);
+            plotter.SetupSphericalCoordinatePlot(_features);
+            plotter.DrawSphericalCoordinatePlot();
         }
     }
 }
