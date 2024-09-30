@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using EarthquakeFeature = _EarthquakeDataDemo.EarthquakeDataFetcher.EarthquakeFeature;
+using EarthquakeFeature = DataVisualizationDemo.EarthquakeDataFetcher.EarthquakeFeature;
 
-namespace _EarthquakeDataDemo
+namespace DataVisualizationDemo
 {
 	public class Plotter : MonoBehaviour
 	{
@@ -19,6 +19,7 @@ namespace _EarthquakeDataDemo
 		{
 			Prepare,
 			Draw,
+			Pause,
 			Stop
 		}
 		private PlottingState plotState = PlottingState.Stop;
@@ -28,7 +29,7 @@ namespace _EarthquakeDataDemo
 		/// <summary>
 		/// A prefab to represent a point in the plot. If none, a sphere primitive is created by default.
 		/// </summary>
-		[SerializeField] private GameObject pointPrefab;
+		[SerializeField] private Point pointPrefab;
 		
 		private List<GameObject> pointObjects;
 		
@@ -37,28 +38,29 @@ namespace _EarthquakeDataDemo
 		
 		[Header("Spherical Coordinate Plot Settings")]
 		public float radius = 5.0f;
-		public bool animateByTime = false;
 		public DateTime startDate;
 		public DateTime endDate;
-		public GameObject globePrefab;
+		public GameObject globe;
 		public float timer = 1.0f;
 		private float _timer = 1.0f;
 
 		private Dictionary<int, List<EarthquakeFeature>> _dayToEarthquakes = new Dictionary<int, List<EarthquakeFeature>>();
 		private int _dayCount = 0;
 		private int _maxDayCount;
-		private GameObject _globe;
 		
 		
 		private void Awake()
 		{
 			if (pointPrefab == null)
 			{
-				pointPrefab = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				pointPrefab.SetActive(false);
+				Debug.LogError("PointPrefab is null");
 			}
 
 			_dayToEarthquakes = new Dictionary<int, List<EarthquakeFeature>>();
+			if (globe == null)
+			{
+				Debug.LogError("Missing Globe object. Assign a instance of the Globe prefab.");
+			}
 		}
 		
 		private void Update()
@@ -70,6 +72,14 @@ namespace _EarthquakeDataDemo
 					UpdateAnimatedSphericalCoordinatePlot();
 				}
 
+			}
+			else if (plotType == PlotType.SphericalCoordinatePlot)
+			{
+				if (plotState == PlottingState.Draw)
+				{
+					DrawSphericalCoordinatePlot();
+					plotState = PlottingState.Pause;
+				}
 			}
 		}
 
@@ -120,10 +130,9 @@ namespace _EarthquakeDataDemo
 			}
 			
 			// Set up globe game object
-			_globe = Instantiate(globePrefab, this.transform);
 			float diameter = radius * 2.0f;
-			_globe.transform.localScale = new Vector3(diameter, diameter, diameter);
-			_globe.transform.position = transform.position;
+			globe.transform.localScale = new Vector3(diameter, diameter, diameter);
+			globe.transform.position = transform.position;
 
 			_maxDayCount = (int) (endDate - startDate).TotalDays;
 
@@ -131,7 +140,8 @@ namespace _EarthquakeDataDemo
 		}
 
 		/// <summary>
-		/// Called every frame. Draws data points on the spherical coordinate plot. If animatedByTime is enabled, points will appear in order of the day the earthquakes occurred.
+		/// Called every frame. Draws data points on the spherical coordinate plot. If animatedByTime is enabled,
+		/// points will appear in order of the day the earthquakes occurred.
 		/// </summary>
 		public void DrawSphericalCoordinatePlot()
 		{
@@ -148,18 +158,26 @@ namespace _EarthquakeDataDemo
 				float latitude = (float)quakes[i].geometry.coordinates[1];
 				
 				// Instantiate a new point
-				GameObject point = Instantiate(pointPrefab, transform);
+				Point point = Instantiate(pointPrefab, transform);
 				
+				// Adjust point's position and scale.
 				Vector3 position = LatLonToSphere(latitude, longitude);
 				point.transform.localPosition = position;
-				point.transform.LookAt(_globe.transform.position);
+				point.transform.LookAt(globe.transform.position);
                 point.transform.localScale = new Vector3(pointSize, pointSize, pointSize);
+                point.earthquakeFeature = quakes[i];
 			
+                // Adjust appearance of point.
 				Color color = Color.Lerp(Color.green, Color.red, magnitude / 10f);
 				Renderer pointRenderer = point.GetComponent<Renderer>();
 				if (pointRenderer != null)
 				{
 					pointRenderer.material.color = color;
+				}
+
+				if (plotType == PlotType.AnimatedSphericalCoordinatePlot)
+				{
+					point.StartTimedRender();
 				}
 			}
 		}

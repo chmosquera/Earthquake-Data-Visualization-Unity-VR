@@ -1,35 +1,52 @@
-using System.Collections;
-using UnityEngine;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using UnityEngine;
 
-public class USGSElevationFetcher : MonoBehaviour
+namespace DataVisualizationDemo
 {
-// The USGS Elevation API URL
-    private string USGS_API_URL = "https://nationalmap.gov/epqs/pqs.php?x={0}&y={1}&units=Meters&output=json";
-
-    // Function to fetch elevation data given lat/long
-    public async Task<float> FetchElevation(float latitude, float longitude)
+    public class USGSElevationFetcher : MonoBehaviour
     {
-        string apiUrl = string.Format(USGS_API_URL, longitude, latitude);
+        /// <summary>
+        /// Queries for elevation, given a longitude (x) and latitude (y) from the API https://apps.nationalmap.gov/epqs/.
+        /// </summary>
+        string USGS_API_URL =
+            "https://epqs.nationalmap.gov/v1/json?x={0:0.0}&y={1:0.0}&wkid=4326&units=Meters&includeDate=false";
 
-        using (HttpClient client = new HttpClient())
+        /// <summary>
+        ///  Function to fetch elevation data given coordinates: (x: longitude, y: latitude).
+        /// </summary>
+        /// <param name="longitude"></param>
+        /// <param name="latitude"></param>
+        /// <returns></returns>
+        public async Task<float> FetchElevation(float longitude, float latitude)
         {
-            // Get the response from the API
-            HttpResponseMessage response = await client.GetAsync(apiUrl);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                string jsonResponse = await response.Content.ReadAsStringAsync();
-                JObject data = JObject.Parse(jsonResponse);
-                float elevation = (float)data["USGS_Elevation_Point_Query_Service"]["Elevation_Query"]["Elevation"];
-                return elevation;
+                string apiUrl = string.Format(USGS_API_URL, longitude, latitude);
+
+                using (HttpClient client = new HttpClient())
+                {
+                    // Get the response from the API
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    string jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    // Process the response and get the elevation
+                    JObject data = JObject.Parse(jsonResponse);
+                    string value = (string)data["value"];
+                    if (float.TryParse(value, out float elevation))
+                    {
+                        return elevation;
+                    }
+                }
             }
-            else
+            catch (Exception e)
             {
-                Debug.LogError("Failed to fetch elevation data.");
-                return 0f;
+                Debug.Log("Failed to fetch elevation data. This could be because the location is in the ocean, where elevation may be unknown. Default elevation " + e.Message);
             }
+
+            return 0.0f;
         }
     }
 }

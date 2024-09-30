@@ -2,17 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
-using EarthquakeFeature = _EarthquakeDataDemo.EarthquakeDataFetcher.EarthquakeFeature;
+using EarthquakeFeature = DataVisualizationDemo.EarthquakeDataFetcher.EarthquakeFeature;
 
-namespace _EarthquakeDataDemo
+namespace DataVisualizationDemo
 {
-    public class MainManager : MonoBehaviour
+    public class EarthquakeDemoManager : MonoBehaviour
     {
         public EarthquakeDataFetcher earthquakeDataFetcher;
         public Plotter plotter;
 
-        public List<EarthquakeFeature> features;
+        private List<EarthquakeFeature> _features;
     
         private void Awake()
         {
@@ -40,17 +39,17 @@ namespace _EarthquakeDataDemo
 
             plotter.startDate = new DateTime(2024, 01, 01);
             plotter.endDate = new DateTime(2024, 05, 01);
-            plotter.SetupSphericalCoordinatePlot(features);
+            plotter.SetupSphericalCoordinatePlot(_features);
             plotter.DrawSphericalCoordinatePlot();
         }
         
         private async Task FetchEarthquakeData(string url)
         {
-            features = await earthquakeDataFetcher.GetEarthquakesAsync(url);
+            _features = await earthquakeDataFetcher.GetEarthquakesAsync(url);
             
-            if (features != null && features.Count > 0)
+            if (_features != null && _features.Count > 0)
             {
-                foreach (var earthquake in features)
+                foreach (var earthquake in _features)
                 {
                     var time = System.DateTimeOffset.FromUnixTimeMilliseconds(earthquake.properties.time).DateTime;
                     Debug.Log($"Magnitude: {earthquake.properties.mag}, Location: {earthquake.properties.place}, Time: {time}, URL: {earthquake.properties.url}");

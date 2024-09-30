@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace _EarthquakeDataDemo
+namespace DataVisualizationDemo
 {
     public class EarthquakeDataFetcher : MonoBehaviour
     {
