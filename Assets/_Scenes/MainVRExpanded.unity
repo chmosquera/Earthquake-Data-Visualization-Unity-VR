@@ -154,6 +154,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 301545563}
   - {fileID: 1880652839}
   m_Father: {fileID: 754425041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -174,7 +175,7 @@ MonoBehaviour:
     type: 3}
   pointSize: 0.02
   radius: 0.75
-  globe: {fileID: 1880652840}
+  globe: {fileID: 301545564}
   timer: 1
 --- !u!1001 &18594058
 PrefabInstance:
@@ -1021,6 +1022,86 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1001 &301545562
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 15783550}
+    m_Modifications:
+    - target: {fileID: 1761976437055657011, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_Name
+      value: Earth model
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 471e4d7aa71844069be38708442ff3ea, type: 3}
+--- !u!4 &301545563 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3485903917351460644, guid: 471e4d7aa71844069be38708442ff3ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 301545562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &301545564 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1761976437055657011, guid: 471e4d7aa71844069be38708442ff3ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 301545562}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &301977155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1631,9 +1712,9 @@ MonoBehaviour:
     fetchestText: {fileID: 0}
     totalFetchesText: {fileID: 0}
     lowRes: 5
-    mediumRes: 2
+    mediumRes: 16
   terrainGenerator: {fileID: 1965195021}
-  plotter: {fileID: 0}
+  plotter: {fileID: 15783551}
 --- !u!4 &629278097
 Transform:
   m_ObjectHideFlags: 0
@@ -4805,6 +4886,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Globe
+      objectReference: {fileID: 0}
+    - target: {fileID: 2072725682053967091, guid: eb123213fe19842f3a64dae4bf565160,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4949353768959214824, guid: eb123213fe19842f3a64dae4bf565160,
         type: 3}

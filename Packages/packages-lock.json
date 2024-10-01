@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.chaser324.unity-wireframe": {
+      "version": "https://github.com/insominx/unity-wireframe.git?path=/Packages/unity-wireframe",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "46a40dfa1c1ce7f0144041f6b69adda131da3241"
+    },
     "com.meta.xr.mrutilitykit": {
       "version": "68.0.1",
       "depth": 1,
@@ -95,6 +102,15 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.siccity.gltfutility": {
+      "version": "https://github.com/siccity/gltfutility.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "2.0.0"
+      },
+      "hash": "96619fcd48ffe5c4ad122837a21601a6f7c20080"
+    },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
       "depth": 2,
@@ -171,7 +187,7 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.2.1",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -316,6 +332,13 @@
         "com.unity.xr.legacyinputhelpers": "2.1.2"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.whinarn.unitymeshsimplifier": {
+      "version": "https://github.com/Whinarn/UnityMeshSimplifier.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d741912bfeaad8da4fe0f258f4f3eefe1fe7b3f3"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
