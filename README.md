@@ -92,7 +92,7 @@ Here's a summary of how it works, matching the numbers of the following images.
 ![particle-shader](images/particle-shader.png)
 
 Particles in the main scene: 
-![particles](images/demo-particles.mp4)
+[![Particles video](https://raw.githubusercontent.com/chmosquera/Earthquake-Data-Visualization-Unity-VR/main/images/demo-particles.png)](https://raw.githubusercontent.com/chmosquera/Earthquake-Data-Visualization-Unity-VR/main/images/demo-particles.mp4)
 
 ## Resources and attributes
 - https://github.com/Siccity/GLTFUtility
