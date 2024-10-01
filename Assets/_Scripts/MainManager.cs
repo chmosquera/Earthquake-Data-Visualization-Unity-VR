@@ -28,8 +28,7 @@ namespace DataVisualizationDemo
 
         private void Start()
         {
-            // PlotSphere();
-            AnimatedPlotSphere();
+            PlotSphere();
         }
         
         /// <summary>

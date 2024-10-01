@@ -21,9 +21,6 @@ namespace DataVisualizationDemo
 
         [SerializeField] private bool generateOnStart = true; 
 
-        // Path to the text file where the data will be saved
-        private string filePath = "Assets/Positions.txt";
-
         void Start()
         {
             // Initialize mesh and other components
@@ -82,8 +79,6 @@ namespace DataVisualizationDemo
                     vertexPosition = new Vector3(normalizedLat, normalizedLon, normalizedElevation);
 
                     vertices.Add(vertexPosition);
-
-                    // File.AppendAllText(filePath, $"{vertexPosition.x}, {vertexPosition.z}, {vertexPosition.y}\n");
                 }
             }
 

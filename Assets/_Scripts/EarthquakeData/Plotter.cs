@@ -31,7 +31,7 @@ namespace DataVisualizationDemo
 		/// </summary>
 		[SerializeField] private Point pointPrefab;
 		
-		private List<GameObject> pointObjects;
+		private List<GameObject> pointObjects = new List<GameObject>();
 		
 		[Header("Appearance Settings")]
 		[SerializeField] private float pointSize = 0.1f;
@@ -47,6 +47,7 @@ namespace DataVisualizationDemo
 		private Dictionary<int, List<EarthquakeFeature>> _dayToEarthquakes = new Dictionary<int, List<EarthquakeFeature>>();
 		private int _dayCount = 0;
 		private int _maxDayCount;
+		private Material _sharedMaterial;
 		
 		
 		private void Awake()
@@ -61,6 +62,11 @@ namespace DataVisualizationDemo
 			{
 				Debug.LogError("Missing Globe object. Assign a instance of the Globe prefab.");
 			}
+		}
+
+		private void Start()
+		{
+			_sharedMaterial = pointPrefab.GetComponent<Renderer>().sharedMaterial;
 		}
 		
 		private void Update()
@@ -130,17 +136,13 @@ namespace DataVisualizationDemo
 			}
 			
 			// Set up globe game object
-			float diameter = radius * 2.0f;
-			globe.transform.localScale = new Vector3(diameter, diameter, diameter);
-			globe.transform.position = transform.position;
-
 			_maxDayCount = (int) (endDate - startDate).TotalDays;
 
 			plotState = PlottingState.Draw;
 		}
 
 		/// <summary>
-		/// Called every frame. Draws data points on the spherical coordinate plot. If animatedByTime is enabled,
+		/// Draws data points on the spherical coordinate plot. If animatedByTime is enabled,
 		/// points will appear in order of the day the earthquakes occurred.
 		/// </summary>
 		public void DrawSphericalCoordinatePlot()
@@ -151,6 +153,17 @@ namespace DataVisualizationDemo
 			}
 			
 			List<EarthquakeFeature> quakes = _dayToEarthquakes[_dayCount];
+			
+			// Destroy all previous points
+			if (pointObjects != null)
+			{
+				for (int i = 0; i < pointObjects.Count; i++)
+				{
+					Destroy(pointObjects[i]);
+				}
+			}
+			
+			// Instantiate points for new quake
 			for (int i = 0; i < quakes.Count; i++)
 			{
 				float magnitude = (float)quakes[i].properties.mag;
@@ -159,6 +172,7 @@ namespace DataVisualizationDemo
 				
 				// Instantiate a new point
 				Point point = Instantiate(pointPrefab, transform);
+				pointObjects.Add(point.gameObject);
 				
 				// Adjust point's position and scale.
 				Vector3 position = LatLonToSphere(latitude, longitude);
@@ -172,6 +186,7 @@ namespace DataVisualizationDemo
 				Renderer pointRenderer = point.GetComponent<Renderer>();
 				if (pointRenderer != null)
 				{
+					pointRenderer.sharedMaterial = _sharedMaterial;
 					pointRenderer.material.color = color;
 				}
 
